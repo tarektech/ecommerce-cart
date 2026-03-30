@@ -5,6 +5,7 @@ import { CreditCardIcon, Trash2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { formatCurrency } from "@/lib/handle-cart";
+import { useRouter } from "next/navigation";
 
 interface CartSummaryProps {
   totalItems: number;
@@ -17,6 +18,10 @@ export function CartSummary({
   totalPrice,
   onClear,
 }: CartSummaryProps) {
+  const router = useRouter();
+  function onCheckout() {
+    router.push("/cart");
+  }
   return (
     <div className="rounded-[1.75rem] border border-border/70 bg-card/90 p-5 shadow-[0_25px_80px_-52px_rgba(15,23,42,0.5)]">
       <div className="flex items-center justify-between gap-4">
@@ -39,7 +44,7 @@ export function CartSummary({
       </div>
       <Separator className="my-5" />
       <div className="flex flex-col gap-3">
-        <Button disabled={totalItems === 0} size="lg">
+        <Button disabled={totalItems === 0} size="lg" onClick={onCheckout}>
           <CreditCardIcon data-icon="inline-start" />
           Checkout
         </Button>
